@@ -1,0 +1,26 @@
+{% extends 'accounts/base.html' %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<div class="form-wrap">
+  <p class="eyebrow">WELCOME BACK</p>
+  <h1>Sign in to<br><em>your account.</em></h1>
+  <p class="intro">Enter your details to continue.</p>
+  <form method="post" class="auth-form">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="form-error" role="alert">{{ form.non_field_errors.0 }}</div>{% endif %}
+    <div class="field">
+      <label for="id_username">Username</label>
+      {{ form.username }}
+      {% for error in form.username.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+    </div>
+    <div class="field">
+      <label for="id_password">Password</label>
+      {{ form.password }}
+      {% for error in form.password.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+    </div>
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    <button class="primary-button" type="submit">Continue <span aria-hidden="true">↗</span></button>
+  </form>
+  <p class="switch-link">New to Aegis? <a href="{% url 'signup' %}">Create an account <span aria-hidden="true">↗</span></a></p>
+</div>
+{% endblock %}
